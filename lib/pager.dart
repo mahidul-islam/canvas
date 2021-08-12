@@ -1,3 +1,4 @@
+import 'package:canvas/clock.dart';
 import 'package:canvas/draggable_widget.dart';
 import 'package:canvas/generate_image.dart';
 import 'package:canvas/rotatable_widget.dart';
@@ -60,6 +61,7 @@ class _PagerWidgetState extends State<PagerWidget> {
             children: [
               CustomPainterDraggable(),
               CustomPainterRotatble(),
+              ClockPage(),
               ImageGenerator(),
             ],
           ),
@@ -70,7 +72,7 @@ class _PagerWidgetState extends State<PagerWidget> {
               alignment: Alignment.center,
               child: SmoothPageIndicator(
                 controller: _controller,
-                count: 3,
+                count: 4,
                 effect: WormEffect(
                   dotWidth: 7,
                   dotHeight: 7,

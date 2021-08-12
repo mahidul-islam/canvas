@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math.dart';
+import 'package:flutter/src/material/colors.dart' as Color;
 
 class CustomPainterRotatble extends StatefulWidget {
   @override
@@ -11,6 +13,20 @@ class _CustomPainterRotatbleState extends State<CustomPainterRotatble> {
   final width = 100.0;
   final height = 100.0;
   bool _dragging = false;
+  double angle = 0.0;
+
+  @override
+  void initState() {
+    _initCoOrdinate();
+    super.initState();
+  }
+
+  Future<void> _initCoOrdinate() async {
+    await Future<void>.delayed(Duration(milliseconds: 100));
+    xPos = MediaQuery.of(context).size.width / 2 - (width / 2);
+    yPos = MediaQuery.of(context).size.height / 2 - (height / 2);
+    setState(() {});
+  }
 
   /// Is the point (x, y) inside the rect?
   bool _insideRect(double x, double y) =>
@@ -28,14 +44,26 @@ class _CustomPainterRotatbleState extends State<CustomPainterRotatble> {
       },
       onPanUpdate: (details) {
         if (_dragging) {
+          final nowX = details.globalPosition.dx;
+          final nowY = details.globalPosition.dy;
+          final goX = details.globalPosition.dx + details.delta.dx;
+          final goY = details.globalPosition.dy + details.delta.dy;
+          final v1 = Vector2(nowX - xPos, nowY - yPos);
+          final v2 = Vector2(goX - xPos, goY - yPos);
+
           setState(() {
-            xPos += details.delta.dx;
-            yPos += details.delta.dy;
+            angle = v1.angleTo(v2);
+            print(angle);
           });
+
+          // setState(() {
+          //   xPos += details.delta.dx;
+          //   yPos += details.delta.dy;
+          // });
         }
       },
       child: Container(
-        color: Colors.blueAccent,
+        color: Color.Colors.amberAccent,
         child: CustomPaint(
           painter: RectanglePainter(Rect.fromLTWH(xPos, yPos, width, height)),
           child: Container(),
