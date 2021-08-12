@@ -2,13 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:gallery_saver/gallery_saver.dart';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-import 'package:image_downloader/image_downloader.dart';
+// import 'package:image_downloader/image_downloader.dart';
 
 const kCanvasSize = 200.0;
 
@@ -26,6 +28,7 @@ class ImageGenerator extends StatefulWidget {
 
 class _ImageGeneratorState extends State<ImageGenerator> {
   ByteData? imgBytes;
+  Random rd = Random(5);
 
   @override
   Widget build(BuildContext context) {
@@ -71,14 +74,21 @@ class _ImageGeneratorState extends State<ImageGenerator> {
 
   Future<void> saveImage() async {
     final directoryName = "Generated";
-    final fileName = 'hello';
+    final fileName = 'hello' + rd.nextInt(1000).toString();
 
     Directory? directory = await getExternalStorageDirectory();
+    // Directory? directory = await getTemporaryDirectory();
     String path = directory!.path;
     await Directory('$path/$directoryName').create(recursive: true);
 
+    print('$path/$directoryName/$fileName.png');
+
     File('$path/$directoryName/$fileName.png')
         .writeAsBytesSync(imgBytes!.buffer.asInt8List());
+
+    // await requestPermissions([PermissionGroup.storage]);
+
+    // await GallerySaver.saveImage('$path/$directoryName/$fileName.png');
   }
 
   // void downLoadImage() async {
