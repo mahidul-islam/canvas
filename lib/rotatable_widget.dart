@@ -8,65 +8,18 @@ class CustomPainterRotatble extends StatefulWidget {
 }
 
 class _CustomPainterRotatbleState extends State<CustomPainterRotatble> {
-  var xPos = 0.0;
-  var yPos = 0.0;
-  final width = 100.0;
-  final height = 100.0;
-  bool _dragging = false;
-  double angle = 0.0;
-
-  @override
-  void initState() {
-    _initCoOrdinate();
-    super.initState();
-  }
-
-  Future<void> _initCoOrdinate() async {
-    await Future<void>.delayed(Duration(milliseconds: 100));
-    xPos = MediaQuery.of(context).size.width / 2 - (width / 2);
-    yPos = MediaQuery.of(context).size.height / 2 - (height / 2);
-    setState(() {});
-  }
-
-  /// Is the point (x, y) inside the rect?
-  bool _insideRect(double x, double y) =>
-      x >= xPos && x <= xPos + width && y >= yPos && y <= yPos + height;
-
+  double _angle = 0.5;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onPanStart: (details) => _dragging = _insideRect(
-        details.globalPosition.dx,
-        details.globalPosition.dy,
-      ),
-      onPanEnd: (details) {
-        _dragging = false;
-      },
-      onPanUpdate: (details) {
-        if (_dragging) {
-          final nowX = details.globalPosition.dx;
-          final nowY = details.globalPosition.dy;
-          final goX = details.globalPosition.dx + details.delta.dx;
-          final goY = details.globalPosition.dy + details.delta.dy;
-          final v1 = Vector2(nowX - xPos, nowY - yPos);
-          final v2 = Vector2(goX - xPos, goY - yPos);
-
-          setState(() {
-            angle = v1.angleTo(v2);
-            print(angle);
-          });
-
-          // setState(() {
-          //   xPos += details.delta.dx;
-          //   yPos += details.delta.dy;
-          // });
-        }
-      },
+      onPanStart: (details) {},
+      onPanEnd: (details) {},
+      onPanUpdate: (details) {},
       child: Container(
-        color: Color.Colors.amberAccent,
+        color: Color.Colors.white,
         child: CustomPaint(
-          painter: RectanglePainter(Rect.fromLTWH(xPos, yPos, width, height)),
           child: Container(),
+          painter: RectanglePainter(angle: _angle),
         ),
       ),
     );
@@ -74,12 +27,43 @@ class _CustomPainterRotatbleState extends State<CustomPainterRotatble> {
 }
 
 class RectanglePainter extends CustomPainter {
-  RectanglePainter(this.rect);
-  final Rect rect;
+  final double angle;
+  final Offset offset = Offset(50, 50);
+  final Offset offset2 = Offset(50, 200);
+
+  RectanglePainter({required this.angle});
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawRect(rect, Paint());
+    final fill = TextPainter(
+        text: TextSpan(
+            text: 'This is a test',
+            style: TextStyle(fontSize: 80, color: Color.Colors.blueAccent)),
+        textDirection: TextDirection.rtl);
+
+    fill.layout();
+    canvas.save();
+    final pivot = fill.size.center(offset);
+    canvas.translate(pivot.dx, pivot.dy);
+    canvas.rotate(angle);
+    canvas.translate(-pivot.dx, -pivot.dy);
+    fill.paint(canvas, offset);
+    canvas.restore();
+
+    final fill2 = TextPainter(
+        text: TextSpan(
+            text: 'This is a test',
+            style: TextStyle(fontSize: 80, color: Color.Colors.blueAccent)),
+        textDirection: TextDirection.rtl);
+
+    fill2.layout();
+    canvas.save();
+    final pivot2 = fill2.size.center(offset);
+    canvas.translate(pivot2.dx, pivot2.dy);
+    canvas.rotate(angle + 0.5);
+    canvas.translate(-pivot2.dx, -pivot2.dy);
+    fill.paint(canvas, offset2);
+    canvas.restore();
   }
 
   @override
