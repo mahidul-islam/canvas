@@ -22,7 +22,7 @@ class _CustomPainterDraggableState extends State<CustomPainterDraggable> {
   }
 
   Future<void> _initCoOrdinate() async {
-    await Future<void>.delayed(Duration(milliseconds: 100));
+    await Future<void>.delayed(Duration(milliseconds: 10));
     xPos = MediaQuery.of(context).size.width / 2 - (width / 2);
     yPos = MediaQuery.of(context).size.height / 2 - (height / 2);
     setState(() {});
