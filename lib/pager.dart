@@ -2,6 +2,8 @@ import 'package:canvas/clock.dart';
 import 'package:canvas/draggable_widget.dart';
 import 'package:canvas/flower.dart';
 import 'package:canvas/generate_image.dart';
+import 'package:canvas/image_in_rect.dart';
+import 'package:canvas/image_loader_pskink.dart';
 import 'package:canvas/multi_rect.dart';
 import 'package:canvas/rotatable_widget.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +65,8 @@ class _PagerWidgetState extends State<PagerWidget> {
             children: [
               CustomPainterDraggable(),
               CustomPainterRotatble(),
+              ImageInsideRectPage(),
+              BlurView('assets/img.png'),
               FlowerPage(),
               MultiRectRotatedAroundCenterPage(),
               ClockPage(),
@@ -76,13 +80,13 @@ class _PagerWidgetState extends State<PagerWidget> {
               alignment: Alignment.center,
               child: SmoothPageIndicator(
                 controller: _controller,
-                count: 6,
+                count: 8,
                 effect: WormEffect(
                   dotWidth: 7,
                   dotHeight: 7,
                   activeDotColor: Colors.blue,
                   dotColor: Colors.blue.withOpacity(0.4),
-                  spacing: 16,
+                  spacing: 12,
                 ),
               ),
             ),
