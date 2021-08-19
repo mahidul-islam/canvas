@@ -1,5 +1,6 @@
 import 'package:canvas/clock.dart';
 import 'package:canvas/draggable_widget.dart';
+import 'package:canvas/drawing_page.dart';
 import 'package:canvas/flower.dart';
 import 'package:canvas/generate_image.dart';
 import 'package:canvas/image_in_rect.dart';
@@ -8,6 +9,8 @@ import 'package:canvas/multi_rect.dart';
 import 'package:canvas/rotatable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import 'hello.dart';
 
 class PagerWidget extends StatefulWidget {
   const PagerWidget({Key? key}) : super(key: key);
@@ -66,9 +69,10 @@ class _PagerWidgetState extends State<PagerWidget> {
               CustomPainterDraggable(),
               CustomPainterRotatble(),
               ImageInsideRectPage(),
-              BlurView('assets/img.png'),
-              FlowerPage(),
               MultiRectRotatedAroundCenterPage(),
+              FlowerPage(),
+              // Draw(),
+              BlurView('assets/img.png'),
               ClockPage(),
               ImageGenerator(),
             ],

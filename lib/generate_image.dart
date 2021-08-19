@@ -6,6 +6,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart';
 
 // import 'package:gallery_saver/gallery_saver.dart';
 // import 'package:permission_handler/permission_handler.dart';
@@ -47,7 +48,8 @@ class _ImageGeneratorState extends State<ImageGenerator> {
                     onPressed: generateImage),
               ),
               Visibility(
-                visible: imgBytes != null,
+                visible: imgBytes != null &&
+                    defaultTargetPlatform == TargetPlatform.android,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: MaterialButton(
