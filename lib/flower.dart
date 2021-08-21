@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+const kCanvasSize = 300.0;
+
 class FlowerPage extends StatefulWidget {
   const FlowerPage({Key? key}) : super(key: key);
 
@@ -13,9 +15,13 @@ class _FlowerPageState extends State<FlowerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CustomPaint(
-          child: Container(),
-          painter: RectangularFlowerPainter(),
+        child: Container(
+          height: kCanvasSize,
+          width: kCanvasSize,
+          child: CustomPaint(
+            child: Container(),
+            painter: RectangularFlowerPainter(),
+          ),
         ),
       ),
     );
