@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'hello.dart';
+import 'optimized_draggable.dart';
 
 class PagerWidget extends StatefulWidget {
   const PagerWidget({Key? key}) : super(key: key);
@@ -68,6 +69,7 @@ class _PagerWidgetState extends State<PagerWidget> {
             children: [
               CustomPainterDraggable(),
               CustomPainterRotatble(),
+              OptimizedDraggable(),
               ImageInsideRectPage(),
               MultiRectRotatedAroundCenterPage(),
               FlowerPage(),
@@ -84,7 +86,7 @@ class _PagerWidgetState extends State<PagerWidget> {
               alignment: Alignment.center,
               child: SmoothPageIndicator(
                 controller: _controller,
-                count: 8,
+                count: 9,
                 effect: WormEffect(
                   dotWidth: 7,
                   dotHeight: 7,
