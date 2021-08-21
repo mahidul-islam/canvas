@@ -22,3 +22,7 @@ git update-ref refs/heads/gh-pages origin/gh-pages
 ```
 
 This is also useful if you want to undo a `peanut` run.
+
+To view the deployment in `Github pages` please follow the below link:
+
+- [Deployment on Github](https://mahidul-islam.github.io/canvas/#/)
