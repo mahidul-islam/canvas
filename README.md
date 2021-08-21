@@ -1,5 +1,19 @@
 # A Experiment with Flutter canvas
 
+Flutter apps can be built by running peanut with the Flutter SDK.
+
+Installing:
+
+```console
+flutter pub global activate peanut
+```
+
+Running:
+
+```console
+flutter pub global run peanut:peanut
+```
+
 To create (or update) your local `gh-pages` branch to match what's on the
 server.
 
