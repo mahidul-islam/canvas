@@ -14,14 +14,11 @@ Running:
 flutter pub global run peanut:peanut
 ```
 
-To create (or update) your local `gh-pages` branch to match what's on the
-server.
+To push your local `gh-pages` branch to server.
 
 ```console
 git push origin gh-pages
 ```
-
-This is also useful if you want to undo a `peanut` run.
 
 To view the deployment in `Github pages` please follow the below link:
 
