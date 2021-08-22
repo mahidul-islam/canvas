@@ -7,6 +7,7 @@ import 'package:canvas/image_in_rect.dart';
 import 'package:canvas/image_loader_pskink.dart';
 import 'package:canvas/multi_rect.dart';
 import 'package:canvas/rotatable_widget.dart';
+import 'package:canvas/scalable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -22,6 +23,19 @@ class PagerWidget extends StatefulWidget {
 
 class _PagerWidgetState extends State<PagerWidget> {
   late PageController _controller;
+  List<Widget> _pages = <Widget>[
+    // CustomPainterDraggable(),
+    // CustomPainterRotatble(),
+    CustomPainterScalable(),
+    OptimizedDraggable(),
+    // ImageInsideRectPage(),
+    MultiRectRotatedAroundCenterPage(),
+    FlowerPage(),
+    // Draw(),
+    // BlurView('assets/img.png'),
+    ClockPage(),
+    ImageGenerator(),
+  ];
 
   @override
   void initState() {
@@ -66,18 +80,7 @@ class _PagerWidgetState extends State<PagerWidget> {
           PageView(
             controller: _controller,
             physics: NeverScrollableScrollPhysics(),
-            children: [
-              CustomPainterDraggable(),
-              CustomPainterRotatble(),
-              OptimizedDraggable(),
-              ImageInsideRectPage(),
-              MultiRectRotatedAroundCenterPage(),
-              FlowerPage(),
-              // Draw(),
-              BlurView('assets/img.png'),
-              ClockPage(),
-              ImageGenerator(),
-            ],
+            children: _pages,
           ),
           Positioned(
             bottom: 32,
@@ -86,7 +89,7 @@ class _PagerWidgetState extends State<PagerWidget> {
               alignment: Alignment.center,
               child: SmoothPageIndicator(
                 controller: _controller,
-                count: 9,
+                count: _pages.length,
                 effect: WormEffect(
                   dotWidth: 7,
                   dotHeight: 7,

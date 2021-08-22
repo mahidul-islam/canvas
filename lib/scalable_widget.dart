@@ -1,18 +1,17 @@
-import 'package:flutter/material.dart' as m;
 import 'package:flutter/material.dart';
-// import 'package:vector_math/vector_math.dart';
 import 'dart:math' as math;
 
-class OptimizedDraggable extends StatefulWidget {
+class CustomPainterScalable extends StatefulWidget {
   @override
-  _OptimizedDraggableState createState() => _OptimizedDraggableState();
+  _CustomPainterScalableState createState() => _CustomPainterScalableState();
 }
 
-class _OptimizedDraggableState extends State<OptimizedDraggable> {
+class _CustomPainterScalableState extends State<CustomPainterScalable> {
   Rect? rect;
   bool _dragging = false;
   bool _rotating = false;
-  double height = 100, width = 100;
+  bool _scaling = false;
+  double height = 100;
   double angle = 0;
 
   @override
@@ -41,9 +40,9 @@ class _OptimizedDraggableState extends State<OptimizedDraggable> {
 
   Future<void> _initCoOrdinate() async {
     await Future<void>.delayed(Duration(milliseconds: 10));
-    final x = MediaQuery.of(context).size.width / 2 - (width / 2);
+    final x = MediaQuery.of(context).size.width / 2 - (height / 2);
     final y = MediaQuery.of(context).size.height / 2 - (height / 2);
-    rect = Offset(x, y) & Size(height, width);
+    rect = Offset(x, y) & Size(height, height);
     setState(() {});
   }
 
@@ -72,7 +71,9 @@ class _OptimizedDraggableState extends State<OptimizedDraggable> {
 
       final _rotated = temp.translate(_center.dx, _center.dy);
 
+      // _printOffset(rect!.center);
       // _printOffset(rect!.topRight);
+      // _printOffset(_centerToTopRight);
       // _printOffset(temp);
       // _printOffset(_rotated);
 
@@ -88,12 +89,7 @@ class _OptimizedDraggableState extends State<OptimizedDraggable> {
     if (rect == null) {
       return false;
     } else {
-      // center of rect.
       Offset _center = rect!.center;
-
-      // from center of rect to tapped vector
-      // Offset _centerToTap = tapped - _center;
-
       Offset _centerToTopLeft = rect!.topLeft - _center;
 
       // rotate topRight Cornar offset of the rect
@@ -114,15 +110,43 @@ class _OptimizedDraggableState extends State<OptimizedDraggable> {
     }
   }
 
+  bool _insideBottomLeftCircle(Offset tapped) {
+    if (rect == null) {
+      return false;
+    } else {
+      Offset _center = rect!.center;
+      Offset _centerToBottomLeft = rect!.bottomLeft - _center;
+
+      // rotate topRight Cornar offset of the rect
+      final temp = Offset.fromDirection(
+          _centerToBottomLeft.direction + angle, _centerToBottomLeft.distance);
+
+      final _rotated = temp.translate(_center.dx, _center.dy);
+
+      // _printOffset(rect!.topRight);
+      // _printOffset(temp);
+      // _printOffset(_rotated);
+
+      final _newRect = Rect.fromCircle(center: _rotated, radius: 10);
+      // _printRect(rect);
+      // _printRect(_newRect);
+
+      return _newRect.contains(tapped);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onPanStart: (details) {
+        print('pan start');
         if (_insideTopRightCircle(details.globalPosition)) {
           _rotating = true;
         } else if (_insideTopLeftCircle(details.globalPosition)) {
           rect = null;
           setState(() {});
+        } else if (_insideBottomLeftCircle(details.globalPosition)) {
+          _scaling = true;
         } else if (_insideRect(details.globalPosition)) {
           _dragging = true;
         }
@@ -130,6 +154,7 @@ class _OptimizedDraggableState extends State<OptimizedDraggable> {
       onPanEnd: (details) {
         _dragging = false;
         _rotating = false;
+        _scaling = false;
       },
       onPanUpdate: (details) {
         // _printRect(rect);
@@ -144,7 +169,26 @@ class _OptimizedDraggableState extends State<OptimizedDraggable> {
 
           setState(() {
             angle += _centerToDelta.direction - _centerToTap.direction;
-            // print(angle.toStringAsFixed(2));
+          });
+        } else if (_scaling && rect != null) {
+          // Determine the value to be scaled.
+          Offset _center = rect!.center;
+          Offset _tap = details.globalPosition;
+          Offset _delta = details.delta;
+
+          Offset _centerToDelta = (_tap + _delta) - _center;
+          Offset _centerToTap = _tap - _center;
+          double _ratio;
+          // TODO: bug fix scaling
+          _ratio = _centerToDelta.distance / _centerToTap.distance;
+
+          // print(_ratio);
+          setState(() {
+            if (_ratio >= 1 || height > 50) {
+              height *= _ratio;
+              rect = Rect.fromCircle(
+                  center: rect!.center + details.delta, radius: height / 2);
+            }
           });
         } else if (_dragging && rect != null) {
           setState(() {
@@ -155,7 +199,7 @@ class _OptimizedDraggableState extends State<OptimizedDraggable> {
         }
       },
       child: Container(
-        color: m.Colors.white,
+        color: Colors.white,
         child: CustomPaint(
           painter: RectanglePainter(rect, angle),
           child: Container(),
@@ -169,8 +213,9 @@ class RectanglePainter extends CustomPainter {
   RectanglePainter(this.rect, this.angle);
   final Rect? rect;
   final double angle;
-  final Paint greenBrush = Paint()..color = m.Colors.greenAccent;
-  final Paint redBrush = Paint()..color = m.Colors.redAccent;
+  final Paint greenBrush = Paint()..color = Colors.greenAccent;
+  final Paint redBrush = Paint()..color = Colors.redAccent;
+  final Paint yellowBrush = Paint()..color = Colors.yellowAccent;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -180,6 +225,7 @@ class RectanglePainter extends CustomPainter {
       canvas.drawRect(rect!, Paint());
       canvas.drawCircle(rect!.topRight, 20, greenBrush);
       canvas.drawCircle(rect!.topLeft, 20, redBrush);
+      canvas.drawCircle(rect!.bottomLeft, 20, yellowBrush);
       canvas.restore();
     }
   }
