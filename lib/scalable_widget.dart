@@ -162,8 +162,7 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
           setState(() {
             if (_ratio >= 1 || _height > 50) {
               _height *= _ratio;
-              rect = Rect.fromCircle(
-                  center: rect!.center + details.delta, radius: _height / 2);
+              rect = Rect.fromCircle(center: rect!.center, radius: _height / 2);
             }
           });
         } else if (_dragging && rect != null) {

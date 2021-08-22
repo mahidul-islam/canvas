@@ -187,7 +187,7 @@ class _MultipleRectangleState extends State<MultipleRectangle> {
             if (_ratio >= 1 || _height[currentRect] > 50) {
               _height[currentRect] *= _ratio;
               _rect[currentRect] = Rect.fromCircle(
-                  center: _rect[currentRect]!.center + details.delta,
+                  center: _rect[currentRect]!.center,
                   radius: _height[currentRect] / 2);
             }
           });
