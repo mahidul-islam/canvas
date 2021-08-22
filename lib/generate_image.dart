@@ -88,7 +88,6 @@ class _ImageGeneratorState extends State<ImageGenerator> {
         .writeAsBytesSync(imgBytes!.buffer.asInt8List());
 
     // await requestPermissions([PermissionGroup.storage]);
-
     // await GallerySaver.saveImage('$path/$directoryName/$fileName.png');
   }
 

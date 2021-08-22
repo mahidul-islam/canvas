@@ -11,8 +11,8 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
   bool _dragging = false;
   bool _rotating = false;
   bool _scaling = false;
-  double height = 100;
-  double angle = 0;
+  double _height = 100;
+  double _angle = 0;
 
   @override
   void initState() {
@@ -40,9 +40,9 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
 
   Future<void> _initCoOrdinate() async {
     await Future<void>.delayed(Duration(milliseconds: 10));
-    final x = MediaQuery.of(context).size.width / 2 - (height / 2);
-    final y = MediaQuery.of(context).size.height / 2 - (height / 2);
-    rect = Offset(x, y) & Size(height, height);
+    final x = MediaQuery.of(context).size.width / 2 - (_height / 2);
+    final y = MediaQuery.of(context).size.height / 2 - (_height / 2);
+    rect = Offset(x, y) & Size(_height, _height);
     setState(() {});
   }
 
@@ -64,23 +64,10 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
     } else {
       Offset _center = rect!.center;
       Offset _centerToTopRight = rect!.topRight - _center;
-
-      // rotate topRight Cornar offset of the rect
       final temp = Offset.fromDirection(
-          _centerToTopRight.direction + angle, _centerToTopRight.distance);
-
+          _centerToTopRight.direction + _angle, _centerToTopRight.distance);
       final _rotated = temp.translate(_center.dx, _center.dy);
-
-      // _printOffset(rect!.center);
-      // _printOffset(rect!.topRight);
-      // _printOffset(_centerToTopRight);
-      // _printOffset(temp);
-      // _printOffset(_rotated);
-
       final _newRect = Rect.fromCircle(center: _rotated, radius: 10);
-      // _printRect(rect);
-      // _printRect(_newRect);
-
       return _newRect.contains(tapped);
     }
   }
@@ -91,21 +78,10 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
     } else {
       Offset _center = rect!.center;
       Offset _centerToTopLeft = rect!.topLeft - _center;
-
-      // rotate topRight Cornar offset of the rect
       final temp = Offset.fromDirection(
-          _centerToTopLeft.direction + angle, _centerToTopLeft.distance);
-
+          _centerToTopLeft.direction + _angle, _centerToTopLeft.distance);
       final _rotated = temp.translate(_center.dx, _center.dy);
-
-      // _printOffset(rect!.topRight);
-      // _printOffset(temp);
-      // _printOffset(_rotated);
-
       final _newRect = Rect.fromCircle(center: _rotated, radius: 10);
-      // _printRect(rect);
-      // _printRect(_newRect);
-
       return _newRect.contains(tapped);
     }
   }
@@ -119,7 +95,7 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
 
       // rotate topRight Cornar offset of the rect
       final temp = Offset.fromDirection(
-          _centerToBottomLeft.direction + angle, _centerToBottomLeft.distance);
+          _centerToBottomLeft.direction + _angle, _centerToBottomLeft.distance);
 
       final _rotated = temp.translate(_center.dx, _center.dy);
 
@@ -168,7 +144,7 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
           Offset _centerToTap = _tap - _center;
 
           setState(() {
-            angle += _centerToDelta.direction - _centerToTap.direction;
+            _angle += _centerToDelta.direction - _centerToTap.direction;
           });
         } else if (_scaling && rect != null) {
           // Determine the value to be scaled.
@@ -184,10 +160,10 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
 
           // print(_ratio);
           setState(() {
-            if (_ratio >= 1 || height > 50) {
-              height *= _ratio;
+            if (_ratio >= 1 || _height > 50) {
+              _height *= _ratio;
               rect = Rect.fromCircle(
-                  center: rect!.center + details.delta, radius: height / 2);
+                  center: rect!.center + details.delta, radius: _height / 2);
             }
           });
         } else if (_dragging && rect != null) {
@@ -201,7 +177,7 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
       child: Container(
         color: Colors.white,
         child: CustomPaint(
-          painter: RectanglePainter(rect, angle),
+          painter: RectanglePainter(rect, _angle),
           child: Container(),
         ),
       ),

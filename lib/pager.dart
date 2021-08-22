@@ -6,6 +6,7 @@ import 'package:canvas/generate_image.dart';
 import 'package:canvas/image_in_rect.dart';
 import 'package:canvas/image_loader_pskink.dart';
 import 'package:canvas/multi_rect.dart';
+import 'package:canvas/multiple_interactive_rect.dart';
 import 'package:canvas/rotatable_widget.dart';
 import 'package:canvas/scalable_widget.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +27,9 @@ class _PagerWidgetState extends State<PagerWidget> {
   List<Widget> _pages = <Widget>[
     // CustomPainterDraggable(),
     // CustomPainterRotatble(),
-    CustomPainterScalable(),
     OptimizedDraggable(),
+    CustomPainterScalable(),
+    MultipleRectangle(),
     // ImageInsideRectPage(),
     MultiRectRotatedAroundCenterPage(),
     FlowerPage(),
