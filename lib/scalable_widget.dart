@@ -155,7 +155,6 @@ class _CustomPainterScalableState extends State<CustomPainterScalable> {
           Offset _centerToDelta = (_tap + _delta) - _center;
           Offset _centerToTap = _tap - _center;
           double _ratio;
-          // TODO: bug fix scaling
           _ratio = _centerToDelta.distance / _centerToTap.distance;
 
           // print(_ratio);

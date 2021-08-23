@@ -3,8 +3,6 @@ import 'dart:math' as math;
 
 const DEFAULT_HEIGHT = 100.0;
 const DEFAULT_ANGLE = 0.0;
-// final math.Random rd = math.Random();
-// final numColors = Colors.primaries.length;
 
 class MultipleRectangle extends StatefulWidget {
   @override
@@ -50,9 +48,13 @@ class _MultipleRectangleState extends State<MultipleRectangle> {
 
   Future<void> _addRectangle() async {
     await Future<void>.delayed(Duration(milliseconds: 10));
-    final x = MediaQuery.of(context).size.width / 2 - (DEFAULT_HEIGHT / 2);
-    final y = MediaQuery.of(context).size.height / 2 - (DEFAULT_HEIGHT / 2);
-    Rect _r = Offset(x, y) & Size(DEFAULT_HEIGHT, DEFAULT_HEIGHT);
+    final _sHeight = MediaQuery.of(context).size.width;
+    final _sWidth = MediaQuery.of(context).size.height;
+    final _offset = Offset(
+      rd.nextDouble() * _sHeight,
+      rd.nextDouble() * _sWidth,
+    );
+    Rect _r = _offset & Size(DEFAULT_HEIGHT, DEFAULT_HEIGHT);
     _rect.add(_r);
     _dragging.add(false);
     _scaling.add(false);
