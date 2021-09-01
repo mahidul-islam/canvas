@@ -11,7 +11,7 @@ flutter pub global activate peanut
 Running:
 
 ```console
-flutter pub global run peanut:peanut
+flutter pub global run peanut --web-renderer canvaskit
 ```
 
 To push your local `gh-pages` branch to server.
