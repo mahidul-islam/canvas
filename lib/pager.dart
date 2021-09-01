@@ -1,21 +1,21 @@
-import 'package:canvas/clock.dart';
-import 'package:canvas/color_picker.dart';
+import 'package:canvas/random/clock.dart';
+import 'package:canvas/color_picker/color_picker.dart';
 import 'package:canvas/color_picker/custom_color_picker.dart';
-import 'package:canvas/draggable_widget.dart';
-import 'package:canvas/drawing_page.dart';
-import 'package:canvas/flower.dart';
-import 'package:canvas/generate_image.dart';
-import 'package:canvas/image_in_rect.dart';
-import 'package:canvas/image_loader_pskink.dart';
-import 'package:canvas/multi_rect.dart';
-import 'package:canvas/multiple_interactive_rect.dart';
-import 'package:canvas/rotatable_widget.dart';
-import 'package:canvas/scalable_widget.dart';
+import 'package:canvas/interactive/draggable_widget.dart';
+import 'package:canvas/random/drawing_page.dart';
+import 'package:canvas/random/flower.dart';
+import 'package:canvas/image/generate_image.dart';
+import 'package:canvas/image/image_in_rect.dart';
+import 'package:canvas/random/image_loader_pskink.dart';
+import 'package:canvas/image/multi_rect.dart';
+import 'package:canvas/interactive/multiple_interactive_rect.dart';
+import 'package:canvas/interactive/rotatable_widget.dart';
+import 'package:canvas/interactive/scalable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'hello.dart';
-import 'optimized_draggable.dart';
+import 'image/hello.dart';
+import 'interactive/optimized_draggable.dart';
 
 class PagerWidget extends StatefulWidget {
   const PagerWidget({Key? key}) : super(key: key);
