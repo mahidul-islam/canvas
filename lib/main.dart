@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Draggable Custom Painter',
+      title: 'Custom Painter Experiments',
       home: Scaffold(
         body: PagerWidget(),
       ),
