@@ -1,4 +1,6 @@
 import 'package:canvas/clock.dart';
+import 'package:canvas/color_picker.dart';
+import 'package:canvas/color_picker/custom_color_picker.dart';
 import 'package:canvas/draggable_widget.dart';
 import 'package:canvas/drawing_page.dart';
 import 'package:canvas/flower.dart';
@@ -27,15 +29,17 @@ class _PagerWidgetState extends State<PagerWidget> {
   List<Widget> _pages = <Widget>[
     // CustomPainterDraggable(),
     // CustomPainterRotatble(),
-    OptimizedDraggable(),
+    // OptimizedDraggable(),
     CustomPainterScalable(),
     MultipleRectangle(),
     // ImageInsideRectPage(),
     MultiRectRotatedAroundCenterPage(),
-    FlowerPage(),
+    // FlowerPage(),
     // Draw(),
     // BlurView('assets/img.png'),
-    ClockPage(),
+    // ClockPage(),
+    // ColorPickerFirst(),
+    CustomColorPicker(),
     ImageGenerator(),
   ];
 
