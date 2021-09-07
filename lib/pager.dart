@@ -1,3 +1,5 @@
+import 'package:canvas/font/basic_font.dart';
+import 'package:canvas/font/network_font.dart';
 import 'package:canvas/random/clock.dart';
 import 'package:canvas/color_picker/color_picker.dart';
 import 'package:canvas/color_picker/custom_color_picker.dart';
@@ -32,6 +34,8 @@ class _PagerWidgetState extends State<PagerWidget> {
     // OptimizedDraggable(),
     CustomPainterScalable(),
     MultipleRectangle(),
+    NetworkFontExample(),
+    DynamicFontLoadingInsideCanvas(),
     // ImageInsideRectPage(),
     MultiRectRotatedAroundCenterPage(),
     // FlowerPage(),
