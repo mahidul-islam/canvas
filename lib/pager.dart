@@ -1,5 +1,7 @@
 import 'package:canvas/font/basic_font.dart';
+import 'package:canvas/font/font_resize.dart';
 import 'package:canvas/font/network_font.dart';
+import 'package:canvas/markdown/first_markdown.dart';
 import 'package:canvas/random/clock.dart';
 import 'package:canvas/color_picker/color_picker.dart';
 import 'package:canvas/color_picker/custom_color_picker.dart';
@@ -29,13 +31,15 @@ class PagerWidget extends StatefulWidget {
 class _PagerWidgetState extends State<PagerWidget> {
   late PageController _controller;
   List<Widget> _pages = <Widget>[
+    MarkdownWidget(),
     // CustomPainterDraggable(),
     // CustomPainterRotatble(),
     // OptimizedDraggable(),
     CustomPainterScalable(),
     MultipleRectangle(),
     NetworkFontExample(),
-    DynamicFontLoadingInsideCanvas(),
+    // CustomFontResizeAuto(),
+    // DynamicFontLoadingInsideCanvas(), // TODO: complete it,
     // ImageInsideRectPage(),
     MultiRectRotatedAroundCenterPage(),
     // FlowerPage(),
